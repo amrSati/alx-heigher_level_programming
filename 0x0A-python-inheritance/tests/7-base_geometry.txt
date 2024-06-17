@@ -1,0 +1,84 @@
+============================
+ The ``BaseGeometry`` Class
+============================
+
+Using ``BaseGeometry``
+----------------------
+
+A class that contains two methods will be tested below.
+
+Setup
+=====
+
+::
+
+	>>> BaseGeometry = __import__("7-base_geometry").BaseGeometry
+
+Test ``area()``
+===============
+
+It will raise an ``Exception``.
+
+::
+
+	>>> bg = BaseGeometry()
+	>>> bg.area()
+	Traceback (most recent call last):
+		...
+	Exception: area() is not implemented
+
+Integer Validator
+=================
+
+Validates givin values that must be an integer and greater than 0.
+
+::
+
+	>>> bg.integer_validator("xx", 32)
+	>>> bg.integer_validator("x", 1)
+	>>> bg.integer_validator("name", 0)
+	Traceback (most recent call last):
+		...
+	ValueError: name must be greater than 0
+	>>> bg.integer_validator("i", "sks")
+	Traceback (most recent call last):
+		...
+	TypeError: i must be an integer
+	>>> bg.integer_validator("sex", None)
+	Traceback (most recent call last):
+		...
+	TypeError: sex must be an integer
+	>>> bg.integer_validator("age", (3, 2))
+	Traceback (most recent call last):
+		...
+	TypeError: age must be an integer
+	>>> bg.integer_validator("class", -2)
+	Traceback (most recent call last):
+		...
+	ValueError: class must be greater than 0
+	>>> bg.integer_validator("age", False)
+	Traceback (most recent call last):
+		...
+	TypeError: age must be an integer
+	>>> bg.integer_validator("length", {'4', 55})
+	Traceback (most recent call last):
+		...
+	TypeError: length must be an integer
+	>>> bg.integer_validator("width", [4])
+	Traceback (most recent call last):
+		...
+	TypeError: width must be an integer
+
+Missing Values
+==============
+
+::
+
+	>>> bg.integer_validator()
+	Traceback (most recent call last):
+		...
+	TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
+	>>> bg.integer_validator("a")
+	Traceback (most recent call last):
+		...
+	TypeError: integer_validator() missing 1 required positional argument: 'value'

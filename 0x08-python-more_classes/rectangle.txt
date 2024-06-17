@@ -1,0 +1,193 @@
+=========================
+ The ``Rectangle`` Class
+=========================
+
+Using ``Rectangle``
+-------------------
+
+Defines a rectangle with ``width`` and ``height``,
+with some rectangle functionalities such as ``area``,
+``perimeter``...etc.
+
+Setup
+=====
+
+::
+
+	>>> Rectangle = __import__('9-rectangle').Rectangle
+
+Create an object
+================
+
+::
+
+	>>> rect = Rectangle(2, 4)
+
+Testing rectangle area
+======================
+
+Should print the area of the rectangle.
+
+::
+
+	>>> rect.area()
+	8
+	>>> rect.width = 3
+	>>> rect.height = 0
+	>>> rect.area()
+	0
+
+Testing rectangle perimeter
+===========================
+
+Should print the perimeter of the rectangle.
+
+::
+
+	>>> rect.perimeter()
+	0
+	>>> rect.height = 3
+	>>> rect.perimeter()
+	12
+
+Printing the rectangle
+======================
+
+Should print ``#``s shaping a rectangle.
+
+::
+
+	>>> print(rect)
+	###
+	###
+	###
+	>>> new_rect = Rectangle(0, 4)
+	>>> print(new_rect)
+	<BLANKLINE>
+
+Testing ``repr()`` of the rectangle
+===================================
+
+Should return a representation of the rectangle to be recreated.
+
+::
+
+	>>> new_rect = eval(repr(rect))
+	Bye rectangle...
+	>>> new_rect is rect
+	False
+	>>> type(new_rect) is type(rect)
+	True
+	>>> new_rect.area() == rect.area()
+	True
+
+Exceptions
+==========
+
+Should raise ``TypeError()`` if the obj values are not integers,
+and raises ``ValueError()`` if the value are below 0.
+
+::
+
+	>>> rect = Rectangle(-1, 3)
+	Traceback (most recent call last):
+		...
+	ValueError: width must be >= 0
+	>>> rect = Rectangle(1, -3)
+	Traceback (most recent call last):
+		...
+	ValueError: height must be >= 0
+	>>> new_rect = Rectangle(1, 3)
+	Bye rectangle...
+	Bye rectangle...
+	>>> new_rect.width = "h"
+	Traceback (most recent call last):
+		...
+	TypeError: width must be an integer
+	>>> new_rect.height = 4.2
+	Traceback (most recent call last):
+		...
+	TypeError: height must be an integer
+
+Object Destructer
+=================
+
+Should print a message when deleting an object.
+
+::
+
+	>>> del rect
+	Bye rectangle...
+	>>> del new_rect
+	Bye rectangle...
+
+Number of Instances
+===================
+
+Track the number of instances.
+
+::
+
+	>>> Rectangle.number_of_instances = 0
+	>>> rect = Rectangle()
+	>>> Rectangle.number_of_instances == 1
+	True
+	>>> del rect
+	Bye rectangle...
+	>>> Rectangle.number_of_instances == 0
+	True
+
+Comparing two rectangles
+========================
+
+If the first is bigger or both are equal should return the first,
+otherwise returns the second rectangle.
+
+::
+
+	>>> rect_1 = Rectangle(4, 4)
+	>>> rect_2 = Rectangle(4, 4)
+	>>> Rectangle.bigger_or_equal(rect_1, rect_2) == rect_1
+	True
+	>>> rect_2.width = 10
+	>>> Rectangle.bigger_or_equal(rect_1, rect_2) == rect_2
+	True
+	>>> Rectangle.bigger_or_equal(rect_2, rect_1) == rect_2
+	True
+	>>> Rectangle.bigger_or_equal("rect_1", rect_2)
+	Traceback (most recent call last):
+		...
+	TypeError: rect_1 must be an instance of Rectangle
+	>>> Rectangle.bigger_or_equal(rect_1, 43)
+	Traceback (most recent call last):
+		...
+	TypeError: rect_2 must be an instance of Rectangle
+	>>> Rectangle.number_of_instances == 2
+	True
+	>>> del rect_1
+	Bye rectangle...
+	>>> del rect_2
+	Bye rectangle...
+	>>> Rectangle.number_of_instances
+	0
+
+Testing ``square()''
+====================
+
+Should create a square rectangle.
+
+::
+
+	>>> square = Rectangle.square(5)
+	>>> print("Area: {} - Perimeter: {}".format(square.area(), square.perimeter()))
+	Area: 25 - Perimeter: 20
+	>>> print(square)
+	#####
+	#####
+	#####
+	#####
+	#####
+	>>> Rectangle.number_of_instances
+	1
+	>>> del square
+	Bye rectangle...
