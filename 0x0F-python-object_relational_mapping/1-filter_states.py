@@ -35,7 +35,9 @@ def main():
         exit(2)
 
     try:
-        cursor.execute('SELECT * FROM states ORDER BY id ASC')
+        cursor.execute(
+                "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC"
+            )
         states = cursor.fetchall()
     except (msd.Error, msd.ProgrammingError) as e:
         try:
