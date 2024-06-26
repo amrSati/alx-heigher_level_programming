@@ -37,7 +37,7 @@ def main():
     try:
         cursor.execute(
                 "SELECT * FROM states\
-                        WHERE name = '{}'\
+                        WHERE name LIKE BINARY '{}'\
                         ORDER BY id ASC".format(argv[4])
             )
         states = cursor.fetchall()
