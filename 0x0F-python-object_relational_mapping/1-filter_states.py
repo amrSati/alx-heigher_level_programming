@@ -49,7 +49,8 @@ def main():
         exit(3)
 
     for state in states:
-        print(state)
+        if state[1].startswith("N"):
+            print(state)
 
     cursor.close()
     db.close()
