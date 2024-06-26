@@ -9,16 +9,21 @@ Args:
 
 import MySQLdb as msd
 from sys import argv, exit
+import re
 
 
 def main():
     """The main function so that the could doesn't run when imported
     """
-    if len(argv) != 4:
+    if len(argv) != 5:
         print(
-                "usage: {} <mysql username> <mysql password> <database name>".
+                "usage: {} <user> <password> <database> <state>".
                 format(argv[0])
             )
+        exit(1)
+
+    if not re.search(r'[ \w]+', argv[4]):
+        print('Error: Incorrect state input')
         exit(1)
 
     try:
@@ -37,8 +42,8 @@ def main():
     try:
         cursor.execute(
                 "SELECT * FROM states\
-                        WHERE REGEXP_LIKE(name, '^N.*')\
-                        ORDER BY id ASC"
+                        WHERE name = {}\
+                        ORDER BY id ASC".format(argv[4])
             )
         states = cursor.fetchall()
     except (msd.Error, msd.ProgrammingError) as e:
