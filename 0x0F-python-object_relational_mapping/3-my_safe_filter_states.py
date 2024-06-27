@@ -9,7 +9,6 @@ Args:
 
 import MySQLdb as msd
 from sys import argv, exit
-import re
 
 
 def main():
@@ -20,10 +19,6 @@ def main():
                 "usage: {} <user> <password> <database> <state>".
                 format(argv[0])
             )
-        exit(1)
-
-    if not re.search(r'[ \w]+', argv[4]):
-        print('Error: Incorrect state input')
         exit(1)
 
     try:
@@ -42,7 +37,7 @@ def main():
     try:
         cursor.execute(
                 "SELECT * FROM states\
-                        WHERE  BINARY name = {}".format(argv[4])
+                        WHERE name LIKE BINARY '{}'".format(argv[4])
             )
         states = cursor.fetchall()
     except (msd.Error, msd.ProgrammingError) as e:
