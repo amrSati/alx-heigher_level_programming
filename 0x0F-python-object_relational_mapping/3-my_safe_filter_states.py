@@ -9,6 +9,7 @@ Args:
 
 import MySQLdb as msd
 from sys import argv, exit
+import re
 
 
 def main():
@@ -20,6 +21,11 @@ def main():
                 format(argv[0])
             )
         exit(1)
+
+    pattern = r'/[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi'
+    state = argv[4]
+    if re.search(pattern, state):
+        exit()
 
     try:
         db = msd.connect(
