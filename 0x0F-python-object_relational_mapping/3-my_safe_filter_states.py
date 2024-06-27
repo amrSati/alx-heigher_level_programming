@@ -42,8 +42,7 @@ def main():
     try:
         cursor.execute(
                 "SELECT * FROM states\
-                        WHERE name = {}\
-                        ORDER BY id ASC".format(argv[4])
+                        WHERE  BINARY name = {}".format(argv[4])
             )
         states = cursor.fetchall()
     except (msd.Error, msd.ProgrammingError) as e:
