@@ -35,11 +35,13 @@ def main():
         exit(2)
 
     try:
-        cursor.execute("SELECT cities.name\
+        cursor.execute(
+                "SELECT cities.name\
                 FROM cities\
                 JOIN states\
                 WHERE cities.state_id = states.id and states.name = '{}'".
-                format(argv[4]))
+                format(argv[4])
+            )
         cities = cursor.fetchall()
     except (msd.Error, msd.ProgrammingError) as e:
         try:
