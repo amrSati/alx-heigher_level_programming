@@ -9,7 +9,6 @@ Args:
 
 import MySQLdb as msd
 from sys import argv, exit
-import re
 
 
 def main():
@@ -21,11 +20,6 @@ def main():
                 format(argv[0])
             )
         exit(1)
-
-    pattern = r'/[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi'
-    state = argv[4]
-    if re.search(pattern, state):
-        exit()
 
     try:
         db = msd.connect(
@@ -41,10 +35,7 @@ def main():
         exit(2)
 
     try:
-        cursor.execute(
-                "SELECT * FROM states\
-                        WHERE name LIKE BINARY '{}'".format(argv[4])
-            )
+        cursor.execute("SELECT * FROM states")
         states = cursor.fetchall()
     except (msd.Error, msd.ProgrammingError) as e:
         try:
@@ -53,8 +44,9 @@ def main():
             print("MySQL Error: %s" % str(e))
         exit(3)
 
-    for state in states:
-        print(state)
+    for i in range(len(states)):
+        if arg[v] in states[i]:
+            print(states[i])
 
     cursor.close()
     db.close()
