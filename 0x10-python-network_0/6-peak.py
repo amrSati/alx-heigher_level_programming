@@ -14,8 +14,6 @@ def find_peak(lst):
         int: The peak in the list if found,
                 None otherwise
     """
-    peak = 0
-
     if not lst or type(lst) is not list or not len(lst):
         return None
 
@@ -23,19 +21,35 @@ def find_peak(lst):
         if type(itm) is not int:
             return None
 
-    if len(lst) == 1:
+    n = len(lst)
+    if n == 1:
         return lst[0]
-    if len(lst) == 2:
+    if n == 2:
         return max(lst)
 
-    for i in range(1, len(lst) - 1, 2):
-        peak = lst[i - 1]
+    return func_util(lst, 0, n - 1, n)
 
-        if lst[i] > lst[i - 1] and lst[i] > lst[i + 1]:
-            return lst[i]
 
-        if i + 2 < len(lst):
-            if lst[i + 1] > lst[i] and lst[i + 1] > lst[i + 2]:
-                return lst[i + 1]
+def func_util(lst, lo, hi, n):
+    """Util to find the peak in a divide and conqure approach
 
-    return peak
+    Args:
+        lst (:obj:list): The list of integers
+        lo (int): The lowest index
+        hi (int): The highest index
+        n (int): Full length of the list
+
+    Returns:
+        int: The peak in lst
+    """
+    mid = lo + (hi - lo) / 2
+    mid = int(mid)
+
+    if ((mid == 0 or lst[mid - 1] <= lst[mid]) and
+            (mid == n - 1 or lst[mid + 1] <= lst[mid])):
+        return lst[mid]
+
+    if mid > 0 and lst[mid - 1] > lst[mid]:
+        return func_util(lst, lo, mid - 1, n)
+    else:
+        return func_util(lst, mid + 1, hi, n)
