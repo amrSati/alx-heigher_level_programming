@@ -2,4 +2,4 @@
 
 SELECT cities.id, cities.name, states.name
 FROM cities
-JOIN states;
+	NATURAL JOIN states;
